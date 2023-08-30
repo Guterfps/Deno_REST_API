@@ -1,22 +1,66 @@
-// @deno-types="npm:@types/express@4"
-import express, {NextFunction, Request, Response} from "npm:express@4.18.2";
+import { Application, Context, Router } from 'https://deno.land/x/oak/mod.ts';
 
-const app = express();
-const port = Number(Deno.env.get("PORT") || 3000);
+import { DBSetUp, DBInsert, DBSelect, DBUpdate, DBDelete, DBQuery } 
+from "./db.ts"
 
-const reqLogger = function (req, _res, next){
-    console.log(`${req.method} request to "${req.url}" by ${req.hostname}`);
-    next();
+const PORT = 3000;
+const app = new Application();
+const router = new Router();
+DBSetUp();
+
+const logging = async (ctx: Context, next: Function) => {
+    console.log(`HTTP ${ctx.request.method} on ${ctx.request.url}`);
+    await next();
 };
 
-app.use(reqLogger);
-
-app.get("/", (_req, res) => {
-    res.status(200).send("Hello from Deno!");
+app.use(logging);
+  
+router.get('/:id?', async(ctx) => {
+    try {
+        let id = ctx.params.id
+        console.log(id);
+        id = id ? id : 'users';
+        ctx.response.body =  await DBSelect(id);
+    } catch (e) {
+         ctx.response.body = e;
+    }
 });
 
-
-
-app.listen(port, () => {
-    console.log(`Listening on port ${port} ...`);
+router.post('/', async (ctx) => {
+    try {
+        ctx.response.body = await DBInsert('users', await ctx.request.body().value);
+    } catch (e) {
+         ctx.response.body = e;
+    }
 });
+
+router.put('/:id?', async (ctx) => {
+    try{
+        let id = ctx.params.id
+        console.log(id);
+        id = id ? id : 'users';
+        ctx.response.body = await DBUpdate(id, await ctx.request.body().value);
+    } catch (e) {
+        ctx.response.body = e;
+    }
+});
+
+router.delete('/:id?', async (ctx) => {
+    try {
+        let id = ctx.params.id
+        console.log(id);
+        id = id ? id : 'users';
+        ctx.response.body = await DBDelete(id);
+    } catch (e) {
+         ctx.response.body = e;
+    }
+});
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+app.addEventListener('listen', () => {
+  console.log(`Listening on localhost:${PORT}`);
+});
+
+await app.listen({ port: PORT });
