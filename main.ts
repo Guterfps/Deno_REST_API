@@ -6,7 +6,8 @@ from "./db.ts"
 const PORT = 3000;
 const app = new Application();
 const router = new Router();
-DBSetUp();
+
+await DBSetUp();
 
 const logging = async (ctx: Context, next: Function) => {
     console.log(`HTTP ${ctx.request.method} on ${ctx.request.url}`);
@@ -18,7 +19,6 @@ app.use(logging);
 router.get('/:id?', async(ctx) => {
     try {
         let id = ctx.params.id
-        console.log(id);
         id = id ? id : 'users';
         ctx.response.body =  await DBSelect(id);
     } catch (e) {
@@ -37,7 +37,6 @@ router.post('/', async (ctx) => {
 router.put('/:id?', async (ctx) => {
     try{
         let id = ctx.params.id
-        console.log(id);
         id = id ? id : 'users';
         ctx.response.body = await DBUpdate(id, await ctx.request.body().value);
     } catch (e) {
@@ -48,7 +47,6 @@ router.put('/:id?', async (ctx) => {
 router.delete('/:id?', async (ctx) => {
     try {
         let id = ctx.params.id
-        console.log(id);
         id = id ? id : 'users';
         ctx.response.body = await DBDelete(id);
     } catch (e) {

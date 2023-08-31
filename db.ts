@@ -1,6 +1,6 @@
 import { Surreal } from "https://deno.land/x/surrealdb@v0.8.4/mod.ts";
 
-type User = {
+export type User = {
     id: string;
     name: { first: string; last: string};
     age: number;
@@ -19,42 +19,68 @@ export async function DBSetUp(){
     }
 }
 
-export async function DBInsert(table: string, data: any){
+export async function DBInsert(table: string, data: any) {
     let created;
 
     try {
         created = await db.create<User>(table, data);
 
     } catch (e) {
-        console.log('ERROR',e);    
+        console.log('ERROR',e);
+        throw e;
     }
 
     return created;
 }
 
-export async function DBQuery(query: string, vars){
-    let groups
-    try {
-        groups = await db.query(query, vars);
-
-    } catch (e) {
-        console.log('ERROR',e);    
-    }
-    return groups;
-}
-
 export async function DBUpdate(id: string, data: any){
-    let updated = await db.merge<User>(id, data);
+    let updated;
+    
+    try{
+        updated = await db.merge<User>(id, data);
+    } catch (e) {
+        console.log('ERROR',e);
+        throw e;
+    }
+    
     return updated;
 }
 
 export async function DBSelect(table: string){
-    let people = await db.select<User>(table);
+    let people;
+    
+    try {
+        people = await db.select<User>(table);
+    } catch (e) {
+        console.log('ERROR',e);
+        throw e;
+    }
+    
     return people;
 }
 
-
 export async function DBDelete(table: string){
-    let deleted = await db.delete(table);
+    let deleted;
+    try {
+        deleted = await db.delete(table);
+    } catch (e) {
+        console.log('ERROR',e);
+        throw e;
+    }
+    
     return deleted;
+}
+
+export async function DBQuery(query: string, vars: any){
+    let groups;
+
+    try {
+        groups = await db.query(query, vars);
+
+    } catch (e) {
+        console.log('ERROR',e);
+        throw e;    
+    }
+
+    return groups;
 }
