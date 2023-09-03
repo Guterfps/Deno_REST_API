@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+    deno:
+        container_name: deno
+        image: deno
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: base
+        depends_on:
+          - surrealdb
+        ports:
+          - 127.0.0.1:3000:3000
+        volumes:
+          - ./:/deno
+    
+    surrealdb:
+        container_name: surrealdb
+        image: surrealdb/surrealdb:latest
+        env_file:
+          - .env
+        entrypoint: 
+          - /surreal 
+          - start
+          - --log 
+          - trace
+          - --auth
+          - --user
+          - ${DB_USER}
+          - --pass
+          - ${DB_PASSWORD}
+          - memory
+        ports:
+          - 127.0.0.1:8000:8000
+        volumes:
+          - rest-api-data:/var/lib/surrealdb
+
+volumes:
+  rest-api-data:
