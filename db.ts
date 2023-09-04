@@ -6,7 +6,9 @@ export type User = {
     age: number;
 }
 
-const db = new Surreal('http://127.0.0.1:8000/rpc');
+// surrealdb - is the container name in the docker, 
+// insted of localhost on the machine. 
+const db = new Surreal('http://surrealdb:8000/rpc');
 
 export async function DBSetUp(){
     try {

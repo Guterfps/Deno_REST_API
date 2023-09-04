@@ -10,4 +10,4 @@ COPY . ./
 
 RUN deno cache main.ts
 
-CMD ["task", "dev"]
+CMD ["task", "start"]
