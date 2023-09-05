@@ -1,1 +1,1 @@
-deno tests
+sudo docker exec deno deno test --allow-net
