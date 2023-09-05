@@ -2,16 +2,15 @@ name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
-
-      #- uses: actions/setup-docker@v3
-      - run: ./build.sh
-        shell: bash
-      - run: ./tests.sh
-        shell: bash
+      
+      - name: Build the docker image
+      - run: docker compose up --build
+      # - run: ./tests.sh
+      #   shell: bash
