@@ -13,6 +13,6 @@ jobs:
       - name: Build the docker containers
         run: docker-compose up -d
       
-      # - name: tests
-      #   run: docker exec deno deno test --allow-net
+      - name: tests
+        run: docker exec deno deno test --allow-net
 
