@@ -1,1 +1,2 @@
-sudo docker compose up --build --remove-orphans
+surreal start --log trace --user root --pass root --auth memory
+deno start

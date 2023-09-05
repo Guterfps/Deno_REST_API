@@ -6,10 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-deno@v3
+      - uses: denoland/setup-deno@v1
         with:
-          deno-version: 'latest'
-      - uses: actions/setup-docker@v3
+          deno-version: v1.x
+
+      #- uses: actions/setup-docker@v3
       - run: build.sh
       - run: tests.sh
 
