@@ -1,0 +1,1 @@
+sudo docker exec {CONTAINER ID/NAME} deno test --allow-net
