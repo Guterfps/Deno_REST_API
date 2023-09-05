@@ -11,6 +11,7 @@ jobs:
           deno-version: v1.x
 
       #- uses: actions/setup-docker@v3
-      - run: build.sh
-      - run: tests.sh
-
+      - run: ./build.sh
+        shell: bash
+      - run: ./tests.sh
+        shell: bash
