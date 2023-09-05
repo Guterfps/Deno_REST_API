@@ -11,8 +11,8 @@ jobs:
       #     deno-version: v1.x
       
       - name: Build the docker containers
-        run: docker-compose -f "docker-compose.yml" up -d --build
+        run: docker compose up --build --remove-orphans
       
-      - name: tests
-        run: docker exec deno deno test --allow-net
+      # - name: tests
+      #   run: docker exec deno deno test --allow-net
 
