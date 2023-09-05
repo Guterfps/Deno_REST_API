@@ -12,5 +12,7 @@ jobs:
       
       - name: Build the docker containers
         run: sudo docker compose up --build
+      
+      - name: tests
         run: docker exec deno deno test --allow-net
 
