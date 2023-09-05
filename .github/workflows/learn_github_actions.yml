@@ -11,6 +11,6 @@ jobs:
           deno-version: v1.x
       
       - name: Build the docker image
-        run: docker compose up --build
+        run: sudo docker compose up --build
       # - run: ./tests.sh
       #   shell: bash
