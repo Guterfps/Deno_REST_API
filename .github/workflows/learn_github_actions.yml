@@ -16,6 +16,6 @@ jobs:
       - name: Check containers
         run: docker ps
       
-      # - name: tests
-      #   run: docker exec deno deno test --allow-net
+      - name: tests
+        run: docker exec deno deno test --allow-net
 
