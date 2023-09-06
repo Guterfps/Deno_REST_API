@@ -10,9 +10,6 @@ A simple REST API built with Deno, Oak, and SurrealDB, running in Docker contain
   - [Installation](#installation)
 - [Usage](#usage)
 - [Endpoints](#endpoints)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## Overview
 
@@ -46,9 +43,9 @@ Before you begin, ensure you have Docker installed on your system.
 ### Usage
 
 you can run tests with:
-    ```bash
-    ./tests.sh
-
+```bash
+./tests.sh
+```
 you can also add/change tests in the `tests` dir
 
 ### EndPoints
