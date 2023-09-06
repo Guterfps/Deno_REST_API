@@ -14,8 +14,8 @@ jobs:
         run: docker ps
 
       - name: Run Unit Tests
-        run: docker exec deno deno test tests/unit_tests.ts --allow-net
+        run: docker exec deno deno test tests/unit_test.ts --allow-net
 
       - name: Run End To End Tests
-        run: docker exec deno deno test tests/end_to_end_tests.ts --allow-net
+        run: docker exec deno deno test tests/end_to_end_test.ts --allow-net
 
