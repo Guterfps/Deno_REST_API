@@ -16,7 +16,7 @@ const logging = async (ctx: Context, next: Function) => {
 
 app.use(logging);
   
-router.get('/:id?', async(ctx) => {
+router.get('/users/:id?', async(ctx) => {
     try {
         let id = ctx.params.id
         id = id ? id : 'users';
@@ -26,7 +26,7 @@ router.get('/:id?', async(ctx) => {
     }
 });
 
-router.post('/', async (ctx) => {
+router.post('/users/', async (ctx) => {
     try {
         ctx.response.body = await DBInsert('users', await ctx.request.body().value);
     } catch (e) {
@@ -34,7 +34,7 @@ router.post('/', async (ctx) => {
     }
 });
 
-router.put('/:id?', async (ctx) => {
+router.put('/users/:id?', async (ctx) => {
     try{
         let id = ctx.params.id
         id = id ? id : 'users';
@@ -44,7 +44,7 @@ router.put('/:id?', async (ctx) => {
     }
 });
 
-router.delete('/:id?', async (ctx) => {
+router.delete('/users/:id?', async (ctx) => {
     try {
         let id = ctx.params.id
         id = id ? id : 'users';
