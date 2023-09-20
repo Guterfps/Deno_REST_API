@@ -8,6 +8,6 @@ USER deno
 
 COPY . ./
 
-# RUN deno cache main.ts
+RUN deno cache --reload --lock=deno.lock deps.ts
 
 CMD ["task", "start"]

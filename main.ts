@@ -1,4 +1,4 @@
-import { Application, Context, Router } from 'https://deno.land/x/oak/mod.ts';
+import { Application, Context, Router } from 'https://deno.land/x/oak@v12.6.1/mod.ts';
 
 import { DBSetUp, DBInsert, DBSelect, DBUpdate, DBDelete, DBQuery } 
 from "./db.ts"
